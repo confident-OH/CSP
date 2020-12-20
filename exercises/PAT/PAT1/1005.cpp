@@ -141,3 +141,6 @@ int main()
     }
     return 0;
 }
+
+//利用vector模拟栈的功能
+//注意：vector可以模拟栈和array

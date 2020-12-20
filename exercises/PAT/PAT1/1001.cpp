@@ -37,3 +37,5 @@ int main()
     printf("%03d\n", s.top());
     return 0;
 }
+
+//学会了使用printf的输出格式
