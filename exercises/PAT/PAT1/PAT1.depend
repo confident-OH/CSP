@@ -31,3 +31,11 @@
 	<cstring>
 	<algorithm>
 
+1608519075 source:d:\codes\csp_pat\exercises\pat\pat1\1071.cpp
+	<iostream>
+	<cstdio>
+	<cstring>
+	<string>
+	<unordered_map>
+	<algorithm>
+
