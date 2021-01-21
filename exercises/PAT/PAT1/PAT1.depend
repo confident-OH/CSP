@@ -44,3 +44,19 @@
 	<string>
 	<iomanip>
 
+1610508559 source:d:\codes\csp_pat\exercises\pat\pat1\1009.cpp
+	<cstdio>
+	<cstdlib>
+	<vector>
+	<iostream>
+	<algorithm>
+
+1611220227 source:d:\codes\csp_pat\exercises\pat\pat1\1012.cpp
+	<cstdio>
+	<cstdlib>
+	<cstring>
+	<climits>
+	<iostream>
+	<vector>
+	<algorithm>
+
