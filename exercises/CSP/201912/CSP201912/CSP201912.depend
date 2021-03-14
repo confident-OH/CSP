@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1615729009 source:d:\codes\csp_pat\exercises\csp\201912\csp201912\3.cpp
+	<iostream>
+	<cstdio>
+	<cstring>
+	<algorithm>
+	<queue>
+	<unordered_map>
+

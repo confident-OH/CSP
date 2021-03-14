@@ -60,3 +60,10 @@
 	<vector>
 	<algorithm>
 
+1611841129 source:d:\codes\csp_pat\exercises\pat\pat1\1008.cpp
+	<cstdio>
+	<cstdlib>
+	<iostream>
+	<vector>
+	<cstring>
+
