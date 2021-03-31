@@ -1,92 +1,160 @@
-#include <iostream>
-#include <string>
-#include <sstream>
 #include <cstring>
+#include <cstdio>
+#include <iostream>
 #include <vector>
 #include <algorithm>
 
 using namespace std;
 
-const int SMax = 10010, NMax = 520, EMax = 100010;
-int edge[EMax], head[NMax], vnext[EMax], eCount;
-int num_in[NMax];
-char name[NMax];
-bool out[SMax][NMax], in_v[NMax][5];
-string allGate[6] = {string("NOT"), string("AND"), string("OR"), string("XOR"), string("NAND"), string("NOR")};
-int M, N;
+int m, n, s;
+const int SMax = 10010, NMax = 3010, EMax = 5*NMax;
+int e[EMax], ne[EMax], head[NMax], ind;
+int d[NMax], q[NMax];
+char gatename[NMax];
+int gatestate[NMax];
+vector<int> in[SMax], out[SMax];
 
 void add_edge(int source, int dest)
 {
-    vnext[eCount] = head[source];
-    head[source] = eCount;
-    edge[eCount] = dest;
-    eCount++;
+    e[ind] = dest;
+    ne[ind] = head[source];
+    head[source] = ind++;
 }
 
-bool BFS(int i)
+bool topsort()
 {
-
-    return true;
+    int hh = 0, tt = -1, edg;
+    for(int i = 1; i<=m+n; i++){
+        if(!d[i]) q[++tt] = i;
+    }
+    while(hh<=tt){
+        int t = q[hh++];
+        for(int i = head[t]; i!=-1; i = ne[i]){
+            edg = e[i];
+            d[edg]--;
+            if(!d[edg]) q[++tt] = edg;
+        }
+    }
+    return tt == n + m-1;
 }
 
-void init()
+char gate_name(char *str){
+    string gates[] = {
+        "NOT", "AND", "OR", "XOR", "NAND", "NOR"
+    };
+    for(int i = 0; i<6; i++){
+        if(string(str) == gates[i]){
+            return i+1;
+        }
+    }
+    return -1;
+}
+
+void calculate()
 {
-    eCount = 0;
-    memset(edge, 0, sizeof(edge));
-    memset(head, 0, sizeof(head));
-    memset(vnext, 0, sizeof(vnext));
-    memset(num_in, 0, sizeof(num_in));
-    memset(in_v, 0, sizeof(in_v));
-    memset(out, 0, sizeof(out));
+    for(int i = 0; i<m+n; i++){
+        int t = q[i];
+        for(int j = head[t]; j!=-1; j = ne[j]){
+            int edg = e[j];
+            switch (gatename[edg])
+            {
+            case 1:
+                gatestate[edg] = !gatestate[t];
+                break;
+            case 2:
+                gatestate[edg] &= gatestate[t];
+                break;
+            case 3:
+                gatestate[edg] |= gatestate[t];
+                break;
+            case 4:
+                gatestate[edg] ^= gatestate[t];
+                break;
+            case 5:
+                gatestate[edg] |= !gatestate[t];
+                break;
+            case 6:
+                gatestate[edg] &= !gatestate[t];
+                break;
+            default:
+                break;
+            }
+        }
+    }
+}
+
+void init(){
+    memset(head, -1, sizeof (head));
+    memset(ne, -1, sizeof (ne));
+    ind = 0;
+    memset(e, 0, sizeof (e));
+    memset(d, 0, sizeof(d));
 }
 
 int main()
 {
-    int Q = 0, S = 0;
-    cin >> Q;
-    while(Q > 0){
+    int Q;
+    scanf("%d", &Q);
+    char str[100];
+    int num;
+    while(Q--){
         init();
-        cin >> M >> N;
-        string gateName;
-        string inGate;
-        int gateNum;
-        for(int i = 0; i<N; i++){
-            cin >> gateName >> gateNum;
-            for(int i = 1; i<=6; i++){
-                if(gateName == allGate[i]){
-                    name[M+i] = i;
-                    break;
-                }
-            }
-            num_in[M+i] = gateNum;
-            for(int j = 0; j<gateNum; j++){
-                cin >> inGate;
-                if(inGate[0] == 'I'){
-                    add_edge(atoi(inGate.substr(1).c_str()) - 1, M+i);
-                }
-                else{
-                    add_edge(atoi(inGate.substr(1).c_str()) + M - 1, M+i);
+        scanf("%d %d", &m, &n);
+        for(int i = 1; i<=n; i++){
+            scanf("%s %d", str, &d[m+i]);
+            gatename[m+i] = gate_name(str);
+            for(int j = 0; j<d[m+i]; j++){
+                scanf("%s", str);
+                num = atoi(str+1);
+                if(str[0] == 'I'){
+                    add_edge(num, m+i);
+                }else{
+                    add_edge(num+m, m+i);
                 }
             }
         }
-        //Íê³Éµ¼ÈëµçÂ·Í¼
-        //ÅÐ¶ÏÊÇ·ñ³öÏÖ»·Â·
-        if(!BFS(M)){
+        scanf("%d", &s);
+        for(int i = 0; i<s; i++){
+            in[i].clear();
+            for(int j = 0; j<m; j++){
+                scanf("%d", &num);
+                in[i].push_back(num);
+            }
+        }
+        for(int i = 0; i<s; i++){
+            out[i].clear();
+            int cnt;
+            scanf("%d", &cnt);
+            for(int j = 0; j<cnt; j++){
+                scanf("%d", &num);
+                out[i].push_back(num);
+            }
+        }
+        //è¿›è¡Œæ‹“æ‰‘æŽ’åº
+        if(!topsort()){
             printf("LOOP\n");
-            continue;
-        }
-        //µ¼ÈëÃ¿´Î²âÊÔÊý¾Ý
-        cin >> S;
-        for(int i = 0; i<S; i++){
-            for(int j = 0; j<M; j++){
-                cin >> out[i][j];
+        }else{
+            for(int i = 0; i<s; i++){
+                for(int j = 1; j<=m; j++){
+                    gatestate[j] = in[i][j - 1];
+                }
+                for(int j = m+1;j<=n+m; j++){
+                    if(gatename[j] == 2 || gatename[j] == 6) gatestate[j] = 1;
+                    else gatestate[j] = 0;
+                }
+                //å®Œæˆåˆå§‹åŒ–
+                calculate();
+                for(auto x:out[i]){
+                    printf("%d ", gatestate[m+x]);
+                }
+                printf("\n");
             }
         }
-        for(int i = 0; i<S; i++){
-            memset(in_v, 0, sizeof(in_v));
-        }
-
-        Q--;
     }
     return 0;
 }
+
+/*
+æ€»ç»“ï¼šé‚»æŽ¥è¡¨æ¨¡æ¿+æ‹“æ‰‘åºæ¨¡æ¿
+æœ‰å‘å›¾æ˜¯å¦æˆçŽ¯å¯ä»¥ä½¿ç”¨æ‹“æ‰‘åºåˆ¤å®š
+*/
