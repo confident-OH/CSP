@@ -1,105 +1,142 @@
-#include <iostream>
 #include <cstdio>
 #include <cstring>
-#include <queue>
 #include <vector>
-#include <map>
-#include <set>
 #include <algorithm>
 
 using namespace std;
+int xiangsu[1100][2000];
+int blocks_r[1100][2000];
+int block_b[1100][2000];
+int block_g[1100][2000];
 
-struct goods
+void print_color(int a)
 {
-    int type;
-    int recom;
-    int name;
-    goods(int _t, int _r, int _n) : type(_t), recom(_r), name(_n) {}
-    bool operator<(const goods & g) const
-    {
-        if(recom == g.recom){
-            if(type == g.type) return name>g.name;
-            else return type>g.type;
-        }
-        else return recom<g.recom;
+    if(a>0){
+        print_color(a/10);
     }
-};
-
-int m, n;
-const int mMax = 51;
-map<int, set<int>, greater<int>> shop[mMax];
-map<int, set<int>, greater<int>>::iterator shop_iter;
-map<int, int> shop_menu[mMax];
-map<int, int>::iterator shop_menu_iter;
+    else{
+        return;
+    }
+    int i = a%10;
+    switch(i){
+    case 0:
+        printf("\x30");
+        break;
+    case 1:
+        printf("\x31");
+        break;
+    case 2:
+        printf("\x32");
+        break;
+    case 3:
+        printf("\x33");
+        break;
+    case 4:
+        printf("\x34");
+        break;
+    case 5:
+        printf("\x35");
+        break;
+    case 6:
+        printf("\x36");
+        break;
+    case 7:
+        printf("\x37");
+        break;
+    case 8:
+        printf("\x38");
+        break;
+    case 9:
+        printf("\x39");
+        break;
+    }
+}
 
 int main()
 {
+    int m, n;
+    int p, q;
     scanf("%d %d", &m, &n);
-    int rec, name;
-    int opnum;
-    int optype, op1, op2, op3;
-    int search_rec;
-    int K, ki;
-    for(int i = 0; i<n; i++){
-        scanf("%d %d", &name, &rec);
-        for(int j = 0; j<m; j++){
-            shop[j][rec].insert(name);
-            shop_menu[j][name] = rec;
+    getchar();
+    scanf("%d %d", &p, &q);
+    getchar();
+    char str[10];
+    char number[10] = "0x";
+    number[8] = '\0';
+    int color_item;
+    for(int i = 0; i<m; i++){
+        for(int j = 0; j<n; j++){
+            fgets(str, 10, stdin);
+            if(strlen(str) == 3){
+                for(int k = 2; k<=7; k++){
+                    number[k] = str[1];
+                }
+                sscanf(number, "%x", &color_item);
+            }
+            else if(strlen(str) == 5){
+                number[2] = str[1];
+                number[3] = str[1];
+                number[4] = str[2];
+                number[5] = str[2];
+                number[6] = str[3];
+                number[7] = str[3];
+                sscanf(number, "%x", &color_item);
+            }
+            else{
+                number[2] = str[1];
+                number[3] = str[2];
+                number[4] = str[3];
+                number[5] = str[4];
+                number[6] = str[5];
+                number[7] = str[6];
+                sscanf(number, "%x", &color_item);
+            }
+            blocks_r[j/q][i/p] += color_item & 0xff;
+            block_b[j/q][i/p] += (color_item >> 8) & 0xff;
+            block_g[j/q][i/p] += (color_item >> 16) & 0xff;
         }
     }
-    scanf("%d", &opnum);
-    for(int i = 0; i<opnum; i++){
-        scanf("%d", &optype);
-        switch(optype)
-        {
-        case 1:
-            scanf("%d %d %d", &op1, &op2, &op3);
-            shop[op1][op3].insert(op2);
-            shop_menu[op1][op2] = op3;
-            break;
-        case 2:
-            scanf("%d %d", &op1, &op2);
-            search_rec = shop_menu[op1][op2];
-            shop[op1][search_rec].erase(op2);
-            if(shop[op1][search_rec].empty()){
-                shop[op1].erase(search_rec);
+    int mult = p*q;
+    int real_n = n/q;
+    int real_m = m/p;
+    int pre_r = 0;
+    int pre_b = 0;
+    int pre_g = 0;
+    int r, b, g;
+    //output:
+    for(int i = 0; i<real_n; i++){
+        for(int j = 0; j<real_m; j++){
+            r = blocks_r[i][j] / mult;
+            b = block_b[i][j] / mult;
+            g = block_g[i][j] / mult;
+            if(r == pre_r && b == pre_b && g == pre_g){
             }
-            shop_menu[op1].erase(op2);
-            break;
-        case 3:
-            scanf("%d", &K);
-            priority_queue<goods> func3;
-            for(int j = 0; j<m; j++){
-                scanf("%d", &ki);
-                shop_iter = shop[j].begin();
-                while(shop_iter!=shop[j].end() && ki != 0){
-                    set<int>::iterator h = (shop_iter->second).begin();
-                    while(h != (shop_iter->second).end() && ki != 0){
-                        func3.push(goods(j, shop_iter->first, *h));
-                        h++;
-                        ki--;
-                    }
-                    shop_iter++;
+            else{
+                pre_r = r;
+                pre_b = b;
+                pre_g = g;
+                if(r == 0 && b == 0 && g == 0){
+                    printf("\x1B\x5B\x30\x6D");
+                }else{
+                    printf("\x1B\x5B\x34\x38\x3B\x32");
+                    printf("\x3B");
+                    print_color(r);
+                    printf("\x3B");
+                    print_color(b);
+                    printf("\x3B");
+                    print_color(g);
+                    printf("\x6D");
                 }
             }
-            vector<int> ans[m];
-            while(K>0 && !func3.empty()){
-                ans[func3.top().type].push_back(func3.top().name);
-                func3.pop();
-                K--;
-            }
-            for(int j = 0; j<m; j++){
-                if(ans[j].empty()){
-                    puts("-1");
-                }
-                else{
-                    for(int rrr:ans[j]){
-                        printf("%d ", rrr);
-                    }
-                    puts("");
-                }
-            }
-            break;
+            printf("\x20");
+        }
+        if(pre_r!=0 || pre_g!=0 || pre_b!=0){
+            printf("\x1B\x5B\x30\x6D\x0A");
+            pre_r = 0;
+            pre_b = 0;
+            pre_g = 0;
+        }else{
+            printf("\x0A");
         }
     }
     return 0;

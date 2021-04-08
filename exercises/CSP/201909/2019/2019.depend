@@ -1,11 +1,7 @@
 # depslib dependency file v1.0
-1617281599 source:d:\codes\csp_pat\exercises\csp\201909\2019\main.cpp
-	<iostream>
+1617333712 source:d:\codes\csp_pat\exercises\csp\201909\2019\main.cpp
 	<cstdio>
 	<cstring>
-	<queue>
 	<vector>
-	<map>
-	<set>
 	<algorithm>
 
