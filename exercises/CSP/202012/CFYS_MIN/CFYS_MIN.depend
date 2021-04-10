@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1618031304 source:e:\codes\csp-pat\exercises\csp\202012\cfys_min\main.cpp
+	<iostream>
+	<cstring>
+	<cstdio>
+	<queue>
+
