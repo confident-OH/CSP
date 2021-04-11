@@ -12,6 +12,7 @@ ll result;
 
 int main()
 {
+    freopen("datas.txt", "r", stdin);
     scanf("%d %d %d", &a, &v_num, &u_num);
     int c, d;
     for(int i = 0; i<v_num; i++){
