@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1618305536 source:e:\codes\csp-pat\exercises\acwing\basic_algorithm\kmp\main.cpp
+	<iostream>
+	<cstdio>
+	<cstring>
+
