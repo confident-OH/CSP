@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1618388251 source:d:\codes\csp_pat\exercises\acwing\basic_algorithm\connected_blocks\main.cpp
+	<iostream>
+	<cstdio>
+	<cstring>
+
