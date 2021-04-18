@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1618729510 source:e:\codes\csp-pat\exercises\acwing\dp\maxupsequence2\main.cpp
+	<iostream>
+	<algorithm>
+	<set>
+
