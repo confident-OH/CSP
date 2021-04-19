@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1618838874 source:e:\codes\csp-pat\exercises\acwing\dp\nikeswork\main.cpp
+	<iostream>
+	<vector>
+	<algorithm>
+
