@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1623573716 source:e:\codes\csp-pat\exercises\acwing\dp\missile_defense_system\main.cpp
+	<iostream>
+	<string>
+	<cstdio>
+	<cstring>
+	<vector>
+
