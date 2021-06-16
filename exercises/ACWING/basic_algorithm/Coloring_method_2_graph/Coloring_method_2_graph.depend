@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1623807239 source:d:\codes\csp_pat\exercises\acwing\basic_algorithm\coloring_method_2_graph\main.cpp
+	<iostream>
+	<cstring>
+	<cstdio>
+	<vector>
+	<algorithm>
+
