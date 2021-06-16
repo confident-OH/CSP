@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1618822384 source:e:\codes\csp-pat\exercises\acwing\dp\editdistance\main.cpp
+	<iostream>
+	<cstring>
+	<algorithm>
+

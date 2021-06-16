@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1618312891 source:e:\codes\csp-pat\exercises\acwing\basic_algorithm\max_xor\main.cpp
+	<iostream>
+	<algorithm>
+	<cstdio>
+
