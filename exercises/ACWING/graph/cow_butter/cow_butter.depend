@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1623825897 source:e:\codes\csp-pat\exercises\acwing\graph\cow_butter\main.cpp
+	<iostream>
+	<cstring>
+	<cstdio>
+	<queue>
+	<algorithm>
+
