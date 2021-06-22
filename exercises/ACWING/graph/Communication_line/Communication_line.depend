@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1624354387 source:e:\codes\csp-pat\exercises\acwing\graph\communication_line\main.cpp
+	<iostream>
+	<deque>
+	<cstring>
+	<algorithm>
+	<cstdio>
+
