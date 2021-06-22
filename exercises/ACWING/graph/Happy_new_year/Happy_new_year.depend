@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1624345924 source:e:\codes\csp-pat\exercises\acwing\graph\happy_new_year\main.cpp
+	<iostream>
+	<cstdio>
+	<cstring>
+	<queue>
+	<algorithm>
+
