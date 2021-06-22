@@ -7,11 +7,11 @@
 using namespace std;
 typedef pair<int, int> PII;
 
-priority_queue<PII, vector<PII>, greater<PII>> q;
-const int N=1010;
-int h[N], e[N], ne[N], d[N], idx, l[N];
-int dist[N];
-bool th[N];
+priority_queue<PII, vector<PII>, greater<PII>> heap;
+const int N=20010;
+int h[110], e[N], ne[N], d[N], idx, l[110];
+int dist[110];
+bool th[110];
 int n, m;
 
 void add_edge(int a, int b, int c)
@@ -19,24 +19,36 @@ void add_edge(int a, int b, int c)
     e[idx] = b; d[idx] = c; ne[idx] = h[a]; h[a] = idx++;
 }
 
-int dijk(int start)
+int dijk(int start, int up, int down)
 {
-    q.push({0, start});
+    memset(dist, 0x3f, sizeof(dist));
+    memset(th, 0, sizeof(th));
     dist[start] = 0;
-    while(!q.empty()){
-        PII item = q.top();
-        q.pop();
-        if(th[item.second]) continue;
-        th[item.second] = true;
-        for(int i = h[item.second]; ~i; i=ne[i]){
-            int di = e[i];
-            if((l[di]>=l[1]-m||l[di]<=l[1]+m||di==n+1) && dist[di]>item.first+d[i]){
-                dist[di] = item.first+d[i];
-                q.push({dist[di], di});
-                //printf("Test: %d %d\n", dist[di], di);
+
+    heap.push({0, start});
+
+    while (heap.size())
+    {
+        auto t = heap.top();
+        heap.pop();
+
+        int ver = t.second, distance = t.first;
+
+        if (th[ver]) continue;
+        th[ver] = true;
+
+        for (int i = h[ver]; i != -1; i = ne[i])
+        {
+            int j = e[i];
+            if (((l[j]>=up&&l[j]<down)||j==n+1) && dist[j] > dist[ver] + d[i])
+            {
+                dist[j] = dist[ver] + d[i];
+                heap.push({dist[j], j});
             }
         }
     }
+
+    if (dist[n+1] == 0x3f3f3f3f) return -1;
     return dist[n+1];
 }
 
@@ -44,8 +56,6 @@ int dijk(int start)
 int main()
 {
     memset(h, -1, sizeof(h));
-    memset(dist, 0x3f, sizeof(dist));
-    memset(th, 0, sizeof(th));
     int P, L, X;
     int T, V;
     cin >> m >> n;
@@ -58,6 +68,10 @@ int main()
             add_edge(i, T, V);
         }
     }
-    cout << dijk(1) << endl;
+    int res = 0x3f3f3f3f;
+    for(int i = l[1]-m; i<=l[1]; i++){
+        res = min(res, dijk(1, i, i+m));
+    }
+    cout << res << endl;
     return 0;
 }
