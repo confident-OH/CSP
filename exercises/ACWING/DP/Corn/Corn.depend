@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1629607007 source:e:\codes\csp-pat\exercises\acwing\dp\corn\main.cpp
+	<iostream>
+	<vector>
+	<cstring>
+	<cstdio>
+	<cstdlib>
+

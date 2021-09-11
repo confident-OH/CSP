@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1630234299 source:e:\codes\csp-pat\exercises\csp\201903\3\main.cpp
+	<iostream>
+	<cstdio>
+	<cstring>
+	<cstdlib>
+	<vector>
+	<iostream>
+	<cstdio>
+	<cstring>
+	<cstdlib>
+	<vector>
+

@@ -32,7 +32,7 @@ int dijk(int start, int up, int down)
         auto t = heap.top();
         heap.pop();
 
-        int ver = t.second, distance = t.first;
+        int ver = t.second;
 
         if (th[ver]) continue;
         th[ver] = true;
