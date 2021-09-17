@@ -75,5 +75,5 @@ STL小结：
            int n = mapStudent.erase(1);//如果删除了会返回1，否则返回0 
     ```
 
-9. 
+9. std::ios::sync_with_stdio(false)
 

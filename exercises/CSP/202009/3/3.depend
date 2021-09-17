@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1631881610 source:d:\codes\csp_pat\exercises\csp\202009\3\main.cpp
+	<iostream>
+	<cstring>
+	<cstdio>
+	<vector>
+	<queue>
+
