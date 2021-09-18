@@ -77,3 +77,72 @@ STL小结：
 
 9. std::ios::sync_with_stdio(false)
 
+
+
+string 方法摘抄
+
+string 初始化
+
+```c++
+string s1();  // si = ""
+string s2("Hello");  // s2 = "Hello"
+string s3(4, 'K');  // s3 = "KKKK"
+string s4("12345", 1, 3);  //s4 = "234"，即 "12345" 的从下标 1 开始，长度为 3 的子串
+```
+
+string 对象赋值
+
+```c++
+string s1;
+s1 = "Hello";  // s1 = "Hello"
+s2 = 'K';  // s2 = "K”
+string s1("12345"), s2;
+s3.assign(s1);  // s3 = s1
+s2.assign(s1, 1, 2);  // s2 = "23"，即 s1 的子串(1, 2)
+s2.assign(4, 'K');  // s2 = "KKKK"
+s2.assign("abcde", 2, 3);  // s2 = "cde"，即 "abcde" 的子串(2, 3)
+```
+
+string 子串
+
+```c++
+string s1 = "this is ok";
+string s2 = s1.substr(2, 4);  // s2 = "is i"
+s2 = s1.substr(2);  // s2 = "is is ok"
+```
+
+string 查找字符串
+
+```
+string 类有一些查找子串和字符的成员函数，它们的返回值都是子串或字符在 string 对象字符串中的位置（即下标）。如果查不到，则返回 string::npos。string: :npos 是在 string 类中定义的一个静态常量。这些函数如下：
+
+    find：从前往后查找子串或字符出现的位置。
+    rfind：从后往前查找子串或字符出现的位置。
+    find_first_of：从前往后查找何处出现另一个字符串中包含的字符。例如：
+    s1.find_first_of("abc");  //查找s1中第一次出现"abc"中任一字符的位置
+    find_last_of：从后往前查找何处出现另一个字符串中包含的字符。
+    find_first_not_of：从前往后查找何处出现另一个字符串中没有包含的字符。
+    find_last_not_of：从后往前查找何处出现另一个字符串中没有包含的字符。
+```
+
+string 转sstream
+
+```c++
+#include <iostream>
+#include <sstream>
+#include <string>
+using namespace std;
+int main()
+{
+    string src("Avatar 123 5.2 Titanic K");
+    istringstream istrStream(src); //建立src到istrStream的联系
+    string s1, s2;
+    int n;  double d;  char c;
+    istrStream >> s1 >> n >> d >> s2 >> c; //把src的内容当做输入流进行读取
+    ostringstream ostrStream;
+    ostrStream << s1 << endl << s2 << endl << n << endl << d << endl << c <<endl;
+    cout << ostrStream.str();
+    return 0;
+}
+```
+

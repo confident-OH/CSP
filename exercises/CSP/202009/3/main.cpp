@@ -66,6 +66,9 @@ bool topsort(int n)
         for (int i = h[t]; i != -1; i = ne[i])
         {
             int j = e[i];
+            if(d[j] == 0){
+                return false;
+            }
             if (-- d[j] == 0)
                 q[ ++ tt] = j;
         }
@@ -92,6 +95,7 @@ int main()
     while(Q>0){
         Q--;
         allInit();
+        bool isLoop = false;
         string fun, gateItem;
         int k, idInput;
         cin >> M >> N;
@@ -112,8 +116,7 @@ int main()
             }
         }
         if(!topsort(N+M)){
-            cout << "LOOP" << endl;
-            continue;
+            isLoop = true;
         }
         cin >> S;
         vector<int> question[10001];
@@ -132,6 +135,10 @@ int main()
                 cin >> turnItem;
                 question[i].push_back(turnItem);
             }
+        }
+        if(isLoop){
+            cout << "LOOP" << endl;
+            continue;
         }
         for(int i = 0; i<S; i++){
             bool nowGateStatus[1010];
